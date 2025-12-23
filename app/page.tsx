@@ -100,6 +100,7 @@ export default function Home() {
   const [showToast, setShowToast] = useState(false)
   const [easterEggActive, setEasterEggActive] = useState(false)
   const [typedKeys, setTypedKeys] = useState('')
+  const [pdfExists, setPdfExists] = useState(false)
   const ticketRef = useRef<HTMLDivElement>(null)
 
   const t = translations[language]
@@ -126,6 +127,19 @@ export default function Home() {
     const interval = setInterval(updateCountdown, 1000)
 
     return () => clearInterval(interval)
+  }, [])
+
+  // Check if PDF exists
+  useEffect(() => {
+    const checkPdf = async () => {
+      try {
+        const response = await fetch('/ticket_QZ4W45Z6KK.pdf', { method: 'HEAD' })
+        setPdfExists(response.ok)
+      } catch {
+        setPdfExists(false)
+      }
+    }
+    checkPdf()
   }, [])
 
   // Easter egg: typing "lucifer"
@@ -251,6 +265,24 @@ export default function Home() {
           </div>
         </div>
       </div>
+
+      {/* Real Ticket PDF/Image */}
+      {pdfExists && (
+        <div className="max-w-4xl mx-auto mb-8">
+          <div className="bg-white rounded-2xl shadow-2xl overflow-hidden p-4">
+            <h2 className="text-2xl font-bold text-gray-800 mb-4 text-center">
+              {language === 'sv' ? 'Din biljett' : 'Your Ticket'}
+            </h2>
+            <div className="flex justify-center">
+              <iframe
+                src="/ticket_QZ4W45Z6KK.pdf"
+                className="w-full h-[800px] border-2 border-gray-200 rounded-lg"
+                title="EuroHorse 2026 Ticket"
+              />
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Ticket Card */}
       <div className="max-w-4xl mx-auto">

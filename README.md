@@ -18,11 +18,20 @@ En rolig och personlig julklappssida för Amanda med en entrébiljett till EuroH
 # Installera dependencies
 npm install
 
+# Lägg till PDF-filen (valfritt)
+# Kopiera din ticket_QZ4W45Z6KK.pdf till mappen public/
+
 # Starta utvecklingsserver
 npm run dev
 ```
 
 Öppna [http://localhost:3000](http://localhost:3000) i din webbläsare.
+
+### Lägga till PDF-biljetten
+
+För att visa den riktiga biljetten på sidan:
+1. Kopiera din `ticket_QZ4W45Z6KK.pdf` till mappen `public/`
+2. PDF:en kommer automatiskt att visas på sidan ovanför den interaktiva biljetten
 
 ## Deploy till GitHub och Vercel
 
