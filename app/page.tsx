@@ -6,14 +6,21 @@ import { useState, useEffect, useRef } from 'react'
 const translations = {
   sv: {
     title: 'EuroHorse 2026',
-    date: '19-22 februari 2026',
-    location: 'Svenska Massan, Göteborg',
+    date: '19–22 februari 2026',
+    location: 'Svenska Mässan, Göteborg',
     type: 'Entrébiljett vuxen',
     ticketNumber: 'Biljettnummer',
     orderNumber: 'Ordernummer',
     qrCode: 'QR-kod för entré',
     entries: 'Entréer',
+    entryDetails: 'Entré 5 (Korsvägen)\nEntré 3 (Mitt emot Lisebergs huvudentré)',
     openingHours: 'Öppettider',
+    openingHoursText: 'Se våra öppettider på eurohorse.se',
+    welcomeTitle: 'Välkommen till EuroHorse',
+    welcomeSubtitle: 'Norra Europas största mötesplats för alla hästälskare',
+    ticketInfo: 'Hej! Jag är din biljett, tappa inte bort mig. Du behöver inte skriva ut biljetten – det går lika bra att visa upp den i din telefon.\n\nDen här biljetten är giltig en valfri dag, du väljer själv vilken: torsdag–söndag.',
+    allUnderOneRoof: 'Allt under ett tak',
+    allUnderOneRoofText: 'Upplev hela hästfesten! Hos oss hittar du allt under samma tak: shopping i mängder, hästuppvisningar, god mat, dansgolv, hotell, spa m.m.',
     personalMessage: 'Kära Amanda!',
     personalText: 'Detta är din julklapp – en helg tillsammans på EuroHorse 2026! Du är bäst och vi kommer ha så kul med hästar, mat och mys. Detta blir en oförglömlig helg!',
     plan: 'Planen',
@@ -27,7 +34,12 @@ const translations = {
     buttonComing: 'Jag kommer!',
     buttonSave: 'Spara biljetten som bild',
     footer: 'eurohorse.se',
+    footerEn: 'en.eurohorse.se',
     social: 'Följ oss',
+    socialHandles: '@eurohorse_se • @eurohorseglig',
+    ticketSupport: 'Biljettsupport',
+    ticketSupportPhone: 'Telefon: 031-708 80 99',
+    ticketSupportEmail: 'tickets@svenskamassan.se',
     countdown: 'Kvar till eventet',
     days: 'dagar',
     hours: 'timmar',
@@ -38,14 +50,21 @@ const translations = {
   },
   en: {
     title: 'EuroHorse 2026',
-    date: 'February 19-22, 2026',
-    location: 'Swedish Exhibition Centre, Gothenburg',
+    date: 'February 19–22, 2026',
+    location: 'Swedish Exhibition & Congress Centre, Gothenburg',
     type: 'Adult Entry Ticket',
     ticketNumber: 'Ticket Number',
     orderNumber: 'Order Number',
     qrCode: 'QR Code for Entry',
-    entries: 'Entries',
+    entries: 'Entrances',
+    entryDetails: 'Entrance 5 (At Korsvägen)\nEntrance 3 (Opposite Liseberg\'s main entrance)',
     openingHours: 'Opening Hours',
+    openingHoursText: 'Check our opening hours at en.eurohorse.se',
+    welcomeTitle: 'Welcome to EuroHorse',
+    welcomeSubtitle: 'Northern Europe\'s largest gathering for all horse enthusiasts',
+    ticketInfo: 'Hello! I am your ticket, don\'t lose me. You don\'t need to print the ticket – it works just as well to show it on your phone.\n\nThis ticket is valid for any day, you choose which one: Thursday to Sunday.',
+    allUnderOneRoof: 'All Under One Roof',
+    allUnderOneRoofText: 'Experience the complete horse party! You\'ll find everything under the same roof with us: abundant shopping, horse shows, delicious food, dance floors, hotels, spas, and more.',
     personalMessage: 'Dear Amanda!',
     personalText: 'This is your Christmas gift – a weekend together at EuroHorse 2026! You are the best and we will have so much fun with horses, food and coziness. This will be an unforgettable weekend!',
     plan: 'The Plan',
@@ -59,7 +78,12 @@ const translations = {
     buttonComing: "I'm coming!",
     buttonSave: 'Save ticket as image',
     footer: 'eurohorse.se',
+    footerEn: 'en.eurohorse.se',
     social: 'Follow us',
+    socialHandles: '@eurohorse_se • @eurohorseglig',
+    ticketSupport: 'Ticket Support',
+    ticketSupportPhone: 'Phone: 031-708 80 99',
+    ticketSupportEmail: 'tickets@svenskamassan.se',
     countdown: 'Time until event',
     days: 'days',
     hours: 'hours',
@@ -271,23 +295,30 @@ export default function Home() {
               </div>
             </div>
 
+            {/* Welcome Section */}
+            <div className="pt-4 border-t border-gray-200">
+              <h2 className="text-2xl font-bold text-gray-800 mb-2">{t.welcomeTitle}</h2>
+              <p className="text-lg text-gray-600 mb-4">{t.welcomeSubtitle}</p>
+              <div className="bg-blue-50 rounded-lg p-4 border-l-4 border-blue-400">
+                <p className="text-sm text-gray-700 whitespace-pre-line leading-relaxed">{t.ticketInfo}</p>
+              </div>
+            </div>
+
+            {/* All Under One Roof */}
+            <div className="pt-4">
+              <h3 className="text-xl font-bold text-gray-800 mb-2">{t.allUnderOneRoof}</h3>
+              <p className="text-gray-700 leading-relaxed">{t.allUnderOneRoofText}</p>
+            </div>
+
             {/* Entries & Opening Hours */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4 border-t border-gray-200">
               <div>
                 <h3 className="font-semibold text-gray-800 mb-2">{t.entries}</h3>
-                <p className="text-sm text-gray-600">
-                  {language === 'sv' 
-                    ? 'Alla dagar under eventet'
-                    : 'All days during the event'}
-                </p>
+                <p className="text-sm text-gray-600 whitespace-pre-line">{t.entryDetails}</p>
               </div>
               <div>
                 <h3 className="font-semibold text-gray-800 mb-2">{t.openingHours}</h3>
-                <p className="text-sm text-gray-600">
-                  {language === 'sv'
-                    ? '09:00 - 18:00 dagligen'
-                    : '09:00 - 18:00 daily'}
-                </p>
+                <p className="text-sm text-gray-600">{t.openingHoursText}</p>
               </div>
             </div>
 
@@ -332,13 +363,19 @@ export default function Home() {
       </div>
 
       {/* Footer */}
-      <footer className="max-w-4xl mx-auto mt-12 pt-8 border-t border-gray-300 text-center">
-        <p className="text-lg font-semibold text-gray-700 mb-2">{t.footer}</p>
-        <p className="text-sm text-gray-500 mb-4">{t.social}</p>
-        <div className="flex justify-center gap-4 text-sm text-gray-600">
-          <span>@eurohorse2026</span>
-          <span>•</span>
-          <span>@eurohorse_official</span>
+      <footer className="max-w-4xl mx-auto mt-12 pt-8 border-t border-gray-300 text-center space-y-4">
+        <div>
+          <p className="text-lg font-semibold text-gray-700 mb-1">{t.footer}</p>
+          <p className="text-sm text-gray-600">{t.footerEn}</p>
+        </div>
+        <div>
+          <p className="text-sm text-gray-500 mb-2">{t.social}</p>
+          <p className="text-sm text-gray-600">{t.socialHandles}</p>
+        </div>
+        <div className="pt-4 border-t border-gray-200">
+          <p className="text-sm font-semibold text-gray-700 mb-1">{t.ticketSupport}</p>
+          <p className="text-sm text-gray-600">{t.ticketSupportPhone}</p>
+          <p className="text-sm text-gray-600">{t.ticketSupportEmail}</p>
         </div>
       </footer>
     </main>
